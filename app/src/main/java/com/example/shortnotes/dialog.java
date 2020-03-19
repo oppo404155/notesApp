@@ -20,7 +20,7 @@ public class dialog extends DialogFragment {
     NumberPicker picker;
     EditText Title;
     EditText Description;
-    myinterface myinterface = (dialog.myinterface) getContext();
+
     Note note;
     int current_priority;
 
@@ -31,6 +31,7 @@ public class dialog extends DialogFragment {
         picker = view.findViewById(R.id.num_picker);
         Title = view.findViewById(R.id.custom_title);
         Description = view.findViewById(R.id.custom_desc);
+        myinterface myinterface = (dialog.myinterface) getContext();
         picker.setMaxValue(10);
         picker.setMinValue(1);
         picker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
