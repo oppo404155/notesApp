@@ -48,6 +48,9 @@ public abstract class Note_Databse extends RoomDatabase {
             note_dao.insetr(new Note("Title 2", "Description 2", 2));
             note_dao.insetr(new Note("Title 3", "Description 3", 3));
             note_dao.insetr(new Note("Title 4", "Description 4", 4));
+            note_dao.insetr(new Note("Title 4", "Description 4", 4));
+            note_dao.insetr(new Note("Title 4", "Description 4", 4));
+
 
             return null;
         }

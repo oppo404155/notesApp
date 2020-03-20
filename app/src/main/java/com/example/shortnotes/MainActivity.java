@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements dialog.myinterfac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setContentView(R.layout.activity_main);
+        setSupportActionBar((androidx.appcompat.widget.Toolbar) findViewById(R.id.toolbar));
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         Adapter adapter = new Adapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
