@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements dialog.myinterfac
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 viewmodel.delete(adapter.getNoteAtPosition(viewHolder.getAdapterPosition()));
-                Toast.makeText(getApplicationContext(), "Note deleted", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Note has been deleted", Toast.LENGTH_LONG).show();
 
             }
         }).attachToRecyclerView(recyclerView);
