@@ -41,7 +41,8 @@ public class Note_Repository {
 
         return allnotes;
     }
-    public void delete_all_notes(){
+
+    public void delete_all_notes() {
         new delete_async.deleteall_async(note_dao).execute();
 
     }
@@ -61,6 +62,7 @@ public class Note_Repository {
             return null;
         }
     }
+
     private static class uppdate_async extends AsyncTask<Note, Void, Void> {
         private note_data_access_opject note_dao;
 
@@ -76,6 +78,7 @@ public class Note_Repository {
             return null;
         }
     }
+
     private static class delete_async extends AsyncTask<Note, Void, Void> {
         private note_data_access_opject note_dao;
 
@@ -90,6 +93,7 @@ public class Note_Repository {
 
             return null;
         }
+
         private static class deleteall_async extends AsyncTask<Void, Void, Void> {
             private note_data_access_opject note_dao;
 
@@ -104,10 +108,9 @@ public class Note_Repository {
 
                 return null;
             }
+        }
+
+
     }
-
-
-
-}
 
 }

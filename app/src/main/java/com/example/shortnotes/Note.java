@@ -5,11 +5,11 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "Note_table")
 public class Note {
-   @PrimaryKey(autoGenerate = true)
-    private int id ;
-    private String title ;
-    private String description ;
-    private int priority ;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+    private String title;
+    private String description;
+    private int priority;
 
     public Note(String title, String description, int priority) {
         this.title = title;
