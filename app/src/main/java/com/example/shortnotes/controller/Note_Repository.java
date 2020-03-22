@@ -1,13 +1,14 @@
-package com.example.shortnotes;
+package com.example.shortnotes.controller;
 
 import android.app.Application;
 import android.os.AsyncTask;
 
-import java.util.ArrayList;
+import com.example.shortnotes.model.Note;
+import com.example.shortnotes.model.Note_Databse;
+
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 public class Note_Repository {
     private note_data_access_opject note_dao;

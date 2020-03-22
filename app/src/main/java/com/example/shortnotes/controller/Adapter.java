@@ -1,22 +1,21 @@
-package com.example.shortnotes;
+package com.example.shortnotes.controller;
 
-import android.content.Context;
+import android.app.Application;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.shortnotes.model.Note;
+import com.example.shortnotes.R;
+
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
-
-import static java.security.AccessController.getContext;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.viewholder> {
     List<Note> notes_list = new ArrayList<>();
@@ -85,6 +84,43 @@ public class Adapter extends RecyclerView.Adapter<Adapter.viewholder> {
 
     public void setitemclicklistner(OnItemClickLisner lisner) {
         this.lisner = lisner;
+
+    }
+
+    public static class my_viewmodel extends AndroidViewModel {
+        private LiveData<List<Note>> listLiveData;
+        private Note_Repository repository;
+
+        public my_viewmodel(@NonNull Application application) {
+            super(application);
+            repository = new Note_Repository(application);
+            listLiveData = repository.getAllnotes();
+        }
+
+        public void insert(Note note) {
+            repository.insert(note);
+
+        }
+
+        public void update(Note note) {
+            repository.updaet(note);
+
+        }
+
+        public void delete(Note note) {
+            repository.delete(note);
+
+        }
+
+        public void delete_all_notes() {
+            repository.delete_all_notes();
+
+        }
+
+        public LiveData<List<Note>> get_all_notes() {
+
+            return listLiveData;
+        }
 
     }
 }

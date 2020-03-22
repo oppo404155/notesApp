@@ -1,7 +1,6 @@
-package com.example.shortnotes;
+package com.example.shortnotes.ui;
 
 import android.app.AlertDialog;
-import android.app.Application;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -11,10 +10,12 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
+import com.example.shortnotes.model.Note;
+import com.example.shortnotes.R;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.ViewModelProviders;
 
 public class dialog extends DialogFragment {
     NumberPicker picker;

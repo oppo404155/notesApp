@@ -1,4 +1,4 @@
-package com.example.shortnotes;
+package com.example.shortnotes.model;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

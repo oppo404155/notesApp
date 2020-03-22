@@ -1,7 +1,9 @@
-package com.example.shortnotes;
+package com.example.shortnotes.model;
 
 import android.content.Context;
 import android.os.AsyncTask;
+
+import com.example.shortnotes.controller.note_data_access_opject;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;

@@ -1,30 +1,25 @@
-package com.example.shortnotes;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.ItemTouchHelper.SimpleCallback;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+package com.example.shortnotes.ui;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
+import com.example.shortnotes.controller.Adapter;
+import com.example.shortnotes.model.Note;
+import com.example.shortnotes.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class MainActivity extends AppCompatActivity implements dialog.myinterface, Adapter.OnItemClickLisner {
-    private my_viewmodel viewmodel;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class MainActivity extends AppCompatActivity implements com.example.shortnotes.ui.dialog.myinterface, Adapter.OnItemClickLisner {
+    private Adapter.my_viewmodel viewmodel;
     FloatingActionButton button;
     dialog dialog;
 
@@ -47,27 +42,23 @@ public class MainActivity extends AppCompatActivity implements dialog.myinterfac
         return true;
     }
 
-    @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setSupportActionBar((androidx.appcompat.widget.Toolbar) findViewById(R.id.toolbar));
+        setSupportActionBar(findViewById(R.id.toolbar));
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         Adapter adapter = new Adapter();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         button = findViewById(R.id.float_bott);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog = new dialog();
-                dialog.show(getSupportFragmentManager(), "show dialog");
+        button.setOnClickListener(lisner -> {
 
-            }
+            dialog = new dialog();
+            dialog.show(getSupportFragmentManager(), "show dialog");
         });
-
-        viewmodel = ViewModelProviders.of(this).get(my_viewmodel.class);
+        viewmodel = ViewModelProviders.of(this).get(Adapter.my_viewmodel.class);
         viewmodel.get_all_notes().observe(this, notes -> {
             adapter.setNotes_list(notes);
 
@@ -103,7 +94,12 @@ public class MainActivity extends AppCompatActivity implements dialog.myinterfac
 
     @Override
     public void OnItemClicked(Note note) {
+        int id = note.getId();
         Toast.makeText(getApplicationContext(), "updated", Toast.LENGTH_LONG).show();
+        Note mnote = new Note("HELLO", note.getDescription(), note.getPriority());
+        mnote.setId(id);
+
+        viewmodel.update(mnote);
 
     }
 }
