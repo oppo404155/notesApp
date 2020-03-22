@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.shortnotes.controller.Adapter;
+import com.example.shortnotes.controller.my_viewmodel;
 import com.example.shortnotes.model.Note;
 import com.example.shortnotes.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -19,7 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity implements com.example.shortnotes.ui.dialog.myinterface, Adapter.OnItemClickLisner {
-    private Adapter.my_viewmodel viewmodel;
+    private my_viewmodel viewmodel;
     FloatingActionButton button;
     dialog dialog;
 
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements com.example.short
             dialog = new dialog();
             dialog.show(getSupportFragmentManager(), "show dialog");
         });
-        viewmodel = ViewModelProviders.of(this).get(Adapter.my_viewmodel.class);
+        viewmodel = ViewModelProviders.of(this).get(my_viewmodel.class);
         viewmodel.get_all_notes().observe(this, notes -> {
             adapter.setNotes_list(notes);
 
