@@ -2,7 +2,6 @@ package com.example.shortnotes.ui;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,12 +17,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 public class dialog extends DialogFragment {
-    NumberPicker picker;
-    EditText Title;
-    EditText Description;
+    private  EditText Title;
+    private  EditText Description;
 
-    Note note;
-    int current_priority;
+    private  Note note;
+    private int current_priority;
     private int note_flag=0 ;
 
 
@@ -32,7 +30,7 @@ public class dialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.custom_dialog, null, false);
-        picker = view.findViewById(R.id.num_picker);
+        NumberPicker picker = view.findViewById(R.id.num_picker);
         Title = view.findViewById(R.id.custom_title);
         Description = view.findViewById(R.id.custom_desc);
         myinterface myinterface = (dialog.myinterface) getContext();
@@ -51,11 +49,13 @@ public class dialog extends DialogFragment {
                         if (note_flag==0) {
 
                             note = new Note(Title.getText().toString(), Description.getText().toString(), current_priority);
+                            assert myinterface != null;
                             myinterface.connection(note);
                         }
                         else {
                             note = new Note(Title.getText().toString(), Description.getText().toString(), current_priority);
                             note.setId(note_flag);
+                            assert myinterface != null;
                             myinterface.connection(note);
 
                         }
@@ -77,7 +77,7 @@ public class dialog extends DialogFragment {
         void connection(Note note);
 
     }
-    public void set_note_flag(int flag){
+    void set_note_flag(int flag){
         this.note_flag=flag;
     }
 }

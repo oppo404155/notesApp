@@ -1,23 +1,18 @@
 package com.example.shortnotes.ui;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TableLayout;
 import android.widget.Toast;
 
+import com.example.shortnotes.R;
 import com.example.shortnotes.controller.Adapter;
 import com.example.shortnotes.controller.my_viewmodel;
-import com.example.shortnotes.model.Note;
-import com.example.shortnotes.R;
 import com.example.shortnotes.controller.service;
+import com.example.shortnotes.model.Note;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,11 +44,13 @@ public class MainActivity extends AppCompatActivity implements com.example.short
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_clear_all:
+
+            if(item.getItemId()==R.id.menu_clear_all) {
+
                 viewmodel.delete_all_notes();
                 Toast.makeText(getApplicationContext(), "all Notes are removed", Toast.LENGTH_LONG).show();
-        }
+            }
+
         return true;
     }
 
