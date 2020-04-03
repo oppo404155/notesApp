@@ -86,6 +86,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.viewholder> {
         this.lisner = lisner;
 
     }
+    public void set_listItem(Note note){
+        notes_list.add(note);
+        notifyDataSetChanged();
+
+    }
 
 
 }

@@ -10,8 +10,8 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
-import com.example.shortnotes.model.Note;
 import com.example.shortnotes.R;
+import com.example.shortnotes.model.Note;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +24,9 @@ public class dialog extends DialogFragment {
 
     Note note;
     int current_priority;
+    private int note_flag=0 ;
+
+
 
     @NonNull
     @Override
@@ -35,43 +38,46 @@ public class dialog extends DialogFragment {
         myinterface myinterface = (dialog.myinterface) getContext();
         picker.setMaxValue(10);
         picker.setMinValue(1);
-        picker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
-                current_priority = i1;
-            }
-        });
+        picker.setOnValueChangedListener((numberPicker, i, i1) -> current_priority = i1);
         AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-        alert.setView(view).setTitle("Create new Note")
-                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+        alert.setView(view).setTitle("Create new Note or update one")
+                .setPositiveButton("Add/update", (dialogInterface, i) -> {
 
-                        if (Title.getText().toString().isEmpty() || Description.getText().toString().isEmpty()) {
-                            Toast.makeText(getContext(), "error please enter the whole fields", Toast.LENGTH_LONG).show();
+                    if (Title.getText().toString().isEmpty() || Description.getText().toString().isEmpty()) {
 
-                        } else {
+                      Toast.makeText(getContext(),"Error please enter the whole fields",Toast.LENGTH_LONG).show();
+
+                    } else {
+                        if (note_flag==0) {
+
                             note = new Note(Title.getText().toString(), Description.getText().toString(), current_priority);
                             myinterface.connection(note);
-
+                        }
+                        else {
+                            note = new Note(Title.getText().toString(), Description.getText().toString(), current_priority);
+                            note.setId(note_flag);
+                            myinterface.connection(note);
 
                         }
 
+
                     }
-                }).setNegativeButton("Discard", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+
+                }).setNegativeButton("Discard", (dialogInterface, i) -> {
 
 
-            }
-        });
+                });
 
 
         return alert.create();
     }
 
+
     public interface myinterface {
         void connection(Note note);
 
+    }
+    public void set_note_flag(int flag){
+        this.note_flag=flag;
     }
 }
