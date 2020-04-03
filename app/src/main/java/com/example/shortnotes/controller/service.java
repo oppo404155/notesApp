@@ -8,6 +8,9 @@ import android.util.Log;
 import com.example.shortnotes.R;
 import com.example.shortnotes.ui.MainActivity;
 import com.example.shortnotes.ui.app;
+
+import java.util.Objects;
+
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -35,7 +38,7 @@ public class service extends IntentService {
             try {
                 wait(10000);
             } catch (InterruptedException e) {
-                Log.e("handler", e.getMessage());
+                Log.e("handler", Objects.requireNonNull(e.getMessage()));
             }
 
         }

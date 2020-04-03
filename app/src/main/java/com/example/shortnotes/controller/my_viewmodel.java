@@ -5,6 +5,7 @@ import android.app.Application;
 import com.example.shortnotes.model.Note;
 
 import java.util.List;
+import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
