@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.shortnotes.R;
@@ -23,7 +26,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import android.widget.SearchView ;
 public class MainActivity extends AppCompatActivity implements com.example.shortnotes.ui.dialog.myinterface,
         Adapter.OnItemClickLisner {
     private my_viewmodel viewmodel;
@@ -33,26 +36,7 @@ public class MainActivity extends AppCompatActivity implements com.example.short
     Adapter adapter;
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
 
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-            if(item.getItemId()==R.id.menu_clear_all) {
-
-                viewmodel.delete_all_notes();
-                Toast.makeText(getApplicationContext(), "all Notes are removed", Toast.LENGTH_LONG).show();
-            }
-
-        return true;
-    }
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +52,10 @@ public class MainActivity extends AppCompatActivity implements com.example.short
         recyclerView.setAdapter(adapter);
         button = findViewById(R.id.float_bott);
         button.setOnClickListener(listner -> {
-            Intent intent = new Intent(this, service.class);
-            intent.putExtra(service.Extra, "hello");
-            startService(intent);
+            //Intent intent = new Intent(this, service.class);
+            //intent.putExtra(service.Extra, "hello");
+            //startService(intent);
+
             dialog = new dialog();
             dialog.show(getSupportFragmentManager(), "show dialog");
         });
@@ -91,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements com.example.short
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
                 viewmodel.delete(adapter.getNoteAtPosition(viewHolder.getAdapterPosition()));
+               // adapter.delet_item_fromList(adapter.getNoteAtPosition(viewHolder.getAdapterPosition()));
                 creatnotification();
                 Toast.makeText(getApplicationContext(), "note has been deleted", Toast.LENGTH_LONG).show();
 
@@ -136,6 +122,43 @@ public class MainActivity extends AppCompatActivity implements com.example.short
         notificationManagerCompat.notify(1, notification.build());
 
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        MenuItem search=menu.findItem(R.id.filtering);
+        androidx.appcompat.widget.SearchView searchView= (androidx.appcompat.widget.SearchView) search.getActionView();
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId()==R.id.menu_clear_all) {
+
+            viewmodel.delete_all_notes();
+            Toast.makeText(getApplicationContext(), "all Notes are removed", Toast.LENGTH_LONG).show();
+        }
+
+
+        return true;
     }
 
 

@@ -9,9 +9,10 @@ import com.example.shortnotes.R;
 import com.example.shortnotes.ui.MainActivity;
 import com.example.shortnotes.ui.app;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Objects;
 
-import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 

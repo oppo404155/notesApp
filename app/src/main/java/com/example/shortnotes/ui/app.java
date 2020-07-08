@@ -5,6 +5,12 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
+import com.example.shortnotes.controller.Adapter;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class app extends Application {
     public static String CHANNEL_ID = "1";
     String CHANNEL_NAME = "my channel";
@@ -20,5 +26,6 @@ public class app extends Application {
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+        
     }
 }

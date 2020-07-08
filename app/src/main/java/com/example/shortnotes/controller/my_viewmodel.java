@@ -7,7 +7,6 @@ import com.example.shortnotes.model.Note;
 import java.util.List;
 import android.app.Application;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
@@ -16,7 +15,7 @@ public class my_viewmodel extends AndroidViewModel {
         private LiveData<List<Note>> listLiveData;
         private Note_Repository repository;
 
-        public my_viewmodel(@NonNull Application application) {
+        public my_viewmodel(Application application) {
             super(application);
             repository = new Note_Repository(application);
             listLiveData = repository.getAllnotes();

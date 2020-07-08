@@ -2,6 +2,7 @@ package com.example.shortnotes.ui;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,15 +11,18 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.example.shortnotes.R;
+import com.example.shortnotes.controller.service;
 import com.example.shortnotes.model.Note;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 public class dialog extends DialogFragment {
-    private  EditText Title;
-    private  EditText Description;
+    private TextInputLayout  Title;
+    private TextInputLayout  Description;
 
     private  Note note;
     private int current_priority;
@@ -31,8 +35,8 @@ public class dialog extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.custom_dialog, null, false);
         NumberPicker picker = view.findViewById(R.id.num_picker);
-        Title = view.findViewById(R.id.custom_title);
-        Description = view.findViewById(R.id.custom_desc);
+        Title = (TextInputLayout) view.findViewById(R.id.custom_title);
+        Description = (TextInputLayout) view.findViewById(R.id.custom_desc);
         myinterface myinterface = (dialog.myinterface) getContext();
         picker.setMaxValue(10);
         picker.setMinValue(1);
@@ -40,20 +44,23 @@ public class dialog extends DialogFragment {
         AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
         alert.setView(view).setTitle("Create new Note or update one")
                 .setPositiveButton("Add/update", (dialogInterface, i) -> {
+                   // Intent intent = new Intent(getContext(), service.class);
+                    //intent.putExtra(service.Extra, "hello");
+                   //startActivity(intent);
 
-                    if (Title.getText().toString().isEmpty() || Description.getText().toString().isEmpty()) {
+                    if (Title.getEditText().getText().toString().isEmpty() || Description.getEditText().getText().toString().isEmpty()) {
 
                       Toast.makeText(getContext(),"Error please enter the whole fields",Toast.LENGTH_LONG).show();
 
                     } else {
                         if (note_flag==0) {
 
-                            note = new Note(Title.getText().toString(), Description.getText().toString(), current_priority);
+                            note = new Note(Title.getEditText().getText().toString(), Description.getEditText().getText().toString(), current_priority);
                             assert myinterface != null;
                             myinterface.connection(note);
                         }
                         else {
-                            note = new Note(Title.getText().toString(), Description.getText().toString(), current_priority);
+                            note = new Note(Title.getEditText().getText().toString(), Description.getEditText().getText().toString(), current_priority);
                             note.setId(note_flag);
                             assert myinterface != null;
                             myinterface.connection(note);
