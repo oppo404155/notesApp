@@ -71,7 +71,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.viewholder> implements
         protected FilterResults performFiltering(CharSequence charSequence) {
             List<Note> filteredNotes = new ArrayList<>();
 
-            if (charSequence.equals(null) || charSequence.length() == 0) {
+            if (charSequence==null || charSequence.length() == 0) {
                 filteredNotes.addAll(current_database_notes);
             } else {
                 String filter_result = charSequence.toString().toLowerCase().trim();
